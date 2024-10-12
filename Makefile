@@ -1,14 +1,13 @@
 CXX = g++
 CXXFLAGS = -g -Wall -Werror
 
-LIBS = -lncurses
 SRC_FILE = src/main.cpp
 BIN_FILE_NAME = ttype 
 
 all: main
 
 main: $(SRC_FILE)
-	$(CXX) $(CXXFLAGS) $(SRC_FILE) $(LIBS) -o $(BIN_FILE_NAME)
+	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BIN_FILE_NAME)
 
 install: 
 	mkdir -p $(HOME)/.local/bin/
