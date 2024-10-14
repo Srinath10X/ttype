@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <vector>
 
+using namespace std;
+
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
 #define WIPE_SCREEN "\033[2J"
@@ -15,7 +17,7 @@
 #define WHITE_BACKGROUND "\033[47m"
 #define BLACK "\033[30m"
 
-const std::vector<std::string> words = {
+const vector<string> words = {
     "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
     "you",   "that",  "he",    "was",     "for",    "on",    "are",  "with",
     "as",    "I",     "they",  "be",      "at",     "one",   "have", "this",
@@ -27,8 +29,8 @@ const std::vector<std::string> words = {
 class TypingTest {
 private:
   long long start_time;
-  std::string paragraph;
-  std::string typed;
+  string paragraph;
+  string typed;
   int errors;
 
 public:
@@ -66,38 +68,38 @@ void TypingTest::generate_paragraph(int count) {
 
 void TypingTest::draw_paragraph() {
   system("clear");
-  std::cout << RESET;
+  cout << RESET;
 
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
   int top_padding = static_cast<int>(w.ws_row * 0.45);
 
   for (int i = 0; i < top_padding; ++i) {
-    std::cout << '\n';
+    cout << '\n';
   }
 
   int left_padding = (w.ws_col - paragraph.length()) / 2;
   if (left_padding > 0) {
-    std::cout << std::string(left_padding, ' ');
+    cout << string(left_padding, ' ');
   }
 
   for (size_t i = 0; i < typed.length(); ++i) {
     if (paragraph[i] == typed[i])
-      std::cout << BLUE;
+      cout << BLUE;
     else
-      std::cout << RED_UNDERLINE;
-    std::cout << paragraph[i] << RESET;
+      cout << RED_UNDERLINE;
+    cout << paragraph[i] << RESET;
   }
 
   if (typed.length() < paragraph.length()) {
-    std::cout << WHITE_BACKGROUND BLACK;
-    std::cout << paragraph[typed.length()] << RESET;
+    cout << WHITE_BACKGROUND BLACK;
+    cout << paragraph[typed.length()] << RESET;
   }
 
   for (size_t i = typed.length() + 1; i < paragraph.length(); ++i) {
-    std::cout << paragraph[i];
+    cout << paragraph[i];
   }
-  std::cout << RESET << '\n';
+  cout << RESET << '\n';
 }
 
 long long TypingTest::millis() const {
@@ -118,18 +120,18 @@ int TypingTest::error_count() const {
 
 void TypingTest::display_results() {
   system("clear");
-  std::cout << RESET;
+  cout << RESET;
 
   float minutes = (millis() - start_time) / 60000.0f;
   float wpm = (typed.length() / 5.0f) / minutes;
 
-  std::cout << "WPM: " << wpm << '\n';
-  std::cout << "Errors: " << error_count() << '\n';
-  std::cout << "Fixed Errors: " << (errors - error_count()) << '\n';
+  cout << "WPM: " << wpm << '\n';
+  cout << "Errors: " << error_count() << '\n';
+  cout << "Fixed Errors: " << (errors - error_count()) << '\n';
 }
 
 void TypingTest::run(int word_count) {
-  std::cout << HIDE_CURSOR;
+  cout << HIDE_CURSOR;
   generate_paragraph(word_count);
   draw_paragraph();
 
@@ -137,7 +139,7 @@ void TypingTest::run(int word_count) {
     char c = get_char();
 
     if (c == 3 || c == 4) {
-      std::cout << SHOW_CURSOR;
+      cout << SHOW_CURSOR;
       return;
     }
 
@@ -167,7 +169,7 @@ void TypingTest::run(int word_count) {
   }
 
   display_results();
-  std::cout << SHOW_CURSOR;
+  cout << SHOW_CURSOR;
 }
 
 int main(int argc, char *argv[]) {
