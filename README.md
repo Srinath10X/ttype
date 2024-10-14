@@ -38,7 +38,7 @@
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/YourUsername/ttype.git
+   git clone https://github.com/Srinath10X/ttype.git
    cd ttype
    ```
 
