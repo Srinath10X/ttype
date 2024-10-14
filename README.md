@@ -44,14 +44,14 @@
 
 2. Compile the code:
    ```bash
-   g++ -o ttype main.cpp -std=c++11
+   make 
    ```
 
 3. Run the program:
    ```bash
    ./ttype 15
    ```
-   *(Replace `15` with the number of words you'd like to type.)*
+   *(Replace `15` with the number of words you'd like to type or It will take `10` words by default)*
 
 ## Usage 📖
 
