@@ -17,7 +17,7 @@ using namespace std;
 #define WHITE_BACKGROUND "\033[47m"
 #define BLACK "\033[30m"
 
-const VERSION = "v1.0"
+const string VERSION = "v1.0";
 
 const vector<string> words = {
     "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
