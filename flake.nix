@@ -6,6 +6,8 @@
   outputs = { self, nixpkgs }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
+
+      BIN_FILE_NAME = "ttype";
     in
     {
       defaultPackage.x86_64-linux = pkgs.stdenv.mkDerivation {
@@ -18,7 +20,7 @@
         buildPhase = "make build";
         installPhase = ''
           mkdir -p $out/bin
-          cp $(BIN_FILE_NAME) $out/bin/
+          cp ${BIN_FILE_NAME} $out/bin/
         '';
 
         cleanPhase = "make clean";

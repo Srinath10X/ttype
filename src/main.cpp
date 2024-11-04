@@ -10,7 +10,7 @@ using namespace std;
 
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
-#define WIPE_SCREEN "\033[2J"
+#define WIPE_SCREEN "\033[2J\033[H"
 #define RESET "\033[0m"
 #define BLUE "\033[34m"
 #define RED_UNDERLINE "\033[4;31m"
@@ -69,8 +69,7 @@ void TypingTest::generate_paragraph(int count) {
 }
 
 void TypingTest::draw_paragraph() {
-  system("clear");
-  cout << RESET;
+  cout << WIPE_SCREEN << RESET;
 
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -121,8 +120,7 @@ int TypingTest::error_count() const {
 }
 
 void TypingTest::display_results() {
-  system("clear");
-  cout << RESET;
+  cout << WIPE_SCREEN << RESET;
 
   float minutes = (millis() - start_time) / 60000.0f;
   float wpm = (typed.length() / 5.0f) / minutes;
