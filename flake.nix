@@ -10,7 +10,7 @@
       BIN_FILE_NAME = "ttype";
     in
     {
-      defaultPackage.x86_64-linux = pkgs.stdenv.mkDerivation {
+      packages.x86_64-linux.default = pkgs.stdenv.mkDerivation {
         pname = "ttype";
         version = "v1.0.0";
 
@@ -26,7 +26,7 @@
         cleanPhase = "make clean";
       };
 
-      devShell.x86_64-linux = pkgs.mkShell {
+      devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = [ pkgs.gcc pkgs.gnumake ];
       };
     };
