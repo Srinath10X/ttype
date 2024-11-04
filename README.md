@@ -1,10 +1,10 @@
-# TermiType v1.0 ⌨️
+# TermiType v1.0.0
 
 **TermiType 🚀**: A terminal-based typing test application built with C++. Test and improve your typing speed while enjoying a minimal, distraction-free environment.
 
 ## Showcase
 
-![Typing Test Showcase](https://i.imgur.com/mYKjPvL.png)  
+![Typing Test Showcase](https://i.imgur.com/mYKjPvL.png)
 
 ## Table of Contents
 
@@ -44,7 +44,7 @@
 
 2. Compile the code:
    ```bash
-   make 
+   make
    ```
 
 3. Run the program:
