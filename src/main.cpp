@@ -1,3 +1,4 @@
+#include <csignal>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -17,7 +18,7 @@ using namespace std;
 #define WHITE_BACKGROUND "\033[47m"
 #define BLACK "\033[30m"
 
-const string VERSION = "v1.0";
+const string VERSION = "v1.0.1";
 
 const vector<string> words = {
     "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
@@ -27,6 +28,11 @@ const vector<string> words = {
     "we",    "can",   "occur", "support", "nature", "range", "path", "log",
     "meant", "shell", "neck",  "program", "public", "look",  "name", "bee",
 };
+
+void handle_exit(int signal) {
+  cout << SHOW_CURSOR;
+  exit(0);
+}
 
 class TypingTest {
 private:
@@ -138,11 +144,6 @@ void TypingTest::run(int word_count) {
   while (typed.length() < paragraph.length()) {
     char c = get_char();
 
-    if (c == 3 || c == 4) {
-      cout << SHOW_CURSOR;
-      return;
-    }
-
     if (c == 18) {
       typed.clear();
       errors = 0;
@@ -173,6 +174,7 @@ void TypingTest::run(int word_count) {
 }
 
 int main(int argc, char *argv[]) {
+  signal(SIGINT, handle_exit);
   int word_count = (argc == 2 && atoi(argv[1])) ? atoi(argv[1]) : 10;
   TypingTest test;
   test.run(word_count);

@@ -1,4 +1,4 @@
-# TermiType v1.0.0
+# TermiType v1.0.1
 
 **TermiType 🚀**: A terminal-based typing test application built with C++. Test and improve your typing speed while enjoying a minimal, distraction-free environment.
 
@@ -57,7 +57,7 @@
 
 - **Start the Test:** Run `ttype` from the terminal, and the paragraph will appear centered on the screen.
 - **Restart Test:** Press `Ctrl + R` to reset the paragraph and start a new test.
-- **Exit Mid-Test:** Press `Ctrl + C` or `Ctrl + D` to exit at any time.
+- **Exit Mid-Test:** Press `Ctrl + C` to exit at any time.
 
 ### Sample Output:
 ```
