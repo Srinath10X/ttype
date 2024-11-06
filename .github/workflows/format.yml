@@ -1,0 +1,29 @@
+name: clang-format
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Run clang-format
+        run: |
+          FORMAT_FILES=$(find . -name "*.cpp" -o -name "*.h")
+          clang-format -i $FORMAT_FILES
+
+      - name: Check for formatting changes
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Code formatting issues found. Please run clang-format.";
+            exit 1;
+          fi
