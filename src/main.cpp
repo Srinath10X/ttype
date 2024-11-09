@@ -36,7 +36,7 @@ void disable_raw_mode() {
 
 void handle_exit(int signal) {
   disable_raw_mode();
-  std::cout << SHOW_CURSOR;
+  std::cout << WIPE_SCREEN << SHOW_CURSOR;
   exit(0);
 }
 
