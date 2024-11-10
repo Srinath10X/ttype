@@ -1,3 +1,19 @@
+/*-------------------------------------------------------------------*
+ |      ______                    _    ______                         |
+ |     /_  __/__  _________ ___  (_)  /_  __/_  ______  ___           |
+ |      / / / _ \/ ___/ __ `__ \/ /    / / / / / / __ \/ _ \          |
+ |     / / /  __/ /  / / / / / / /    / / / /_/ / /_/ /  __/          |
+ |    /_/  \___/_/  /_/ /_/ /_/_/    /_/  \__, / .___/\___/           |
+ |                                      /____/_/                      |
+ |                                                                   |
+ |     TermiType: A terminal-based typing test application            |
+ |                       built with C++                               |
+ |                                                                   |
+ |     License:  GPLV3 (see LICENSE file at the root of the repo)     |
+ |     Github :  https://github.com/srinath10x/ttype                  |
+ |     Author :  Srinath10X                                           |
+ *-------------------------------------------------------------------*/
+
 #include <csignal>
 #include <cstdlib>
 #include <ctime>
