@@ -42,16 +42,23 @@
    cd ttype
    ```
 
-2. Compile the code:
-   ```bash
-   make
-   ```
+2. Compile the source and Install confix :
 
-3. Run the program:
-   ```bash
-   ./ttype 15
-   ```
-   *(Replace `15` with the number of words you'd like to type or It will take `10` words by default)*
+```bash
+make install
+```
+
+3. Ensure your local bin directory is in your PATH (if not already):
+
+```bash
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+```
+
+4. Run the program:
+```bash
+ttype 15
+```
+*(Replace `15` with the number of words you'd like to type or It will take `10` words by default)*
 
 ## Usage 📖
 
