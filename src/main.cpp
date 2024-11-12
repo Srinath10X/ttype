@@ -5,10 +5,10 @@
  |     / / /  __/ /  / / / / / / /    / / / /_/ / /_/ /  __/          |
  |    /_/  \___/_/  /_/ /_/ /_/_/    /_/  \__, / .___/\___/           |
  |                                      /____/_/                      |
- |                                                                   |
+ |																																	  |
  |     TermiType: A terminal-based typing test application            |
  |                       built with C++                               |
- |                                                                   |
+ |																																	  |
  |     License:  GPLV3 (see LICENSE file at the root of the repo)     |
  |     Github :  https://github.com/srinath10x/ttype                  |
  |     Author :  Srinath10X                                           |
@@ -25,8 +25,10 @@
 
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
+
 #define WIPE_SCREEN "\033[2J\033[H"
 #define RESET "\033[0m"
+
 #define BLUE "\033[34m"
 #define RED_UNDERLINE "\033[4;31m"
 #define WHITE_BACKGROUND "\033[47m"
