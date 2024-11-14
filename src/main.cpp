@@ -66,9 +66,9 @@ private:
 public:
   TypingTest() : start_time(0), errors(0) {}
 
-  void run(int word_count);
+  void run(unsigned word_count);
   void draw_paragraph();
-  void generate_paragraph(int count);
+  void generate_paragraph(unsigned count);
   void disable_raw_mode();
   char get_char();
   void display_results();
@@ -88,10 +88,10 @@ char TypingTest::get_char() {
   return c;
 }
 
-void TypingTest::generate_paragraph(int count) {
+void TypingTest::generate_paragraph(unsigned count) {
   paragraph.clear();
   srand(static_cast<unsigned>(time(nullptr)));
-  for (int i = 0; i < count; ++i) {
+  for (unsigned i = 0; i < count; ++i) {
     paragraph += words[rand() % words.size()] + " ";
   }
   paragraph.pop_back(); // Remove trailing space
@@ -155,7 +155,7 @@ void TypingTest::display_results() {
   std::cout << "Fixed Errors: " << (errors - error_count()) << '\n';
 }
 
-void TypingTest::run(int word_count) {
+void TypingTest::run(unsigned word_count) {
   std::cout << HIDE_CURSOR;
   generate_paragraph(word_count);
   draw_paragraph();
