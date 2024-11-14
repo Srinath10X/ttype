@@ -52,7 +52,7 @@ void disable_raw_mode() {
 
 void handle_exit(int signal) {
   disable_raw_mode();
-  std::cout << WIPE_SCREEN << SHOW_CURSOR;
+  std::cout << WIPE_SCREEN SHOW_CURSOR;
   exit(0);
 }
 
@@ -98,7 +98,7 @@ void TypingTest::generate_paragraph(int count) {
 }
 
 void TypingTest::draw_paragraph() {
-  std::cout << WIPE_SCREEN << RESET;
+  std::cout << WIPE_SCREEN RESET;
 
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -176,7 +176,7 @@ void TypingTest::run(int word_count) {
       start_time = millis();
     }
 
-    if (c != '\b' && c != 127) {
+    if (c != 127) {
       typed += c;
       if (c != paragraph[typed.length() - 1]) {
         ++errors;
