@@ -102,16 +102,12 @@ void TypingTest::draw_paragraph() {
 
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-  int top_padding = static_cast<int>(w.ws_row * 0.45);
+  unsigned top_padding = static_cast<unsigned>(w.ws_row * 0.45);
+  unsigned left_padding =
+      static_cast<unsigned>((w.ws_col - paragraph.length()) / 2);
 
-  for (int i = 0; i < top_padding; ++i) {
-    std::cout << '\n';
-  }
-
-  int left_padding = (w.ws_col - paragraph.length()) / 2;
-  if (left_padding > 0) {
-    std::cout << std::string(left_padding, ' ');
-  }
+  std::cout << std::string(top_padding, '\n');
+  std::cout << std::string(left_padding, ' ');
 
   for (size_t i = 0; i < typed.length(); ++i) {
     if (paragraph[i] == typed[i])
