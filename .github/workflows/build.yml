@@ -22,7 +22,7 @@ jobs:
       - name: Build for x86_64
         run: |
           mkdir -p build/x86_64
-          make
+          make clean && make
           mv ttype build/x86_64/ttype-x86_64
 
       - name: Upload x86_64 binary as artifact
@@ -47,8 +47,8 @@ jobs:
       - name: Build for aarch64
         run: |
           mkdir -p build/aarch64
-          make
-          mv ttype build/aarch64/ttype-aarch64  # Move the binary into the correct folder
+          make clean && make
+          mv ttype build/aarch64/ttype-aarch64
 
       - name: Upload aarch64 binary as artifact
         uses: actions/upload-artifact@v3
