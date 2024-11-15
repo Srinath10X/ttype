@@ -1,31 +1,30 @@
-name: Build C++ Project for Multiple Architectures
+name: Build and Upload Artifact
 
 on:
   push:
     branches: ["main", "dev", "rewrite"]
-  pull_request:
-    branches: ["main", "dev", "rewrite"]
 
 jobs:
-  build-x86_64:
+  build:
     runs-on: ubuntu-latest
-    name: Build for x86_64 Architecture
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up C++ build environment
+      - name: Set up build environment
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential
 
-      - name: Build for x86_64
+      - name: Build the project
         run: |
-          make clean && make
+          mkdir -p build/x86_64
+          make
           mv ttype build/x86_64/ttype-x86_64
 
-      - name: Upload x86_64 binary as artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload artifact to GitHub Release
+        uses: actions/upload-artifact@v4
         with:
           name: ttype-x86_64
           path: build/x86_64/ttype-x86_64
