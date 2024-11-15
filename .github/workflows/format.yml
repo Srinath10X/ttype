@@ -2,9 +2,9 @@ name: clang-format
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ["main", "dev", "rewrite"]
   pull_request:
-    branches: ["main", "dev"]
+    branches: ["main", "dev", "rewrite"]
 
 jobs:
   clang-format:
