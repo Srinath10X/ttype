@@ -16,8 +16,8 @@
 
 #include <csignal>
 #include <cstdlib>
-#include <ctime>
 #include <iostream>
+#include <string>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
@@ -32,8 +32,6 @@
 #define WHITE_BACKGROUND "\033[47m"
 #define BLACK "\033[30m"
 
-const std::string VERSION = "v1.0.1";
-
 const std::vector<std::string> words = {
     "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
     "you",   "that",  "he",    "was",     "for",    "on",    "are",  "with",
@@ -43,75 +41,62 @@ const std::vector<std::string> words = {
     "meant", "shell", "neck",  "program", "public", "look",  "name", "bee",
 };
 
-void disable_raw_mode() {
-  struct termios term;
+struct termios term;
+struct winsize window;
+
+class TermiType {
+private:
+  std::string paragraph;
+  std::string typed;
+
+public:
+  void run(unsigned word_count);
+  static void enableRawMode();
+  static void disableRawMode();
+  static void handleExit(int signal);
+  void generateParagraph(unsigned count);
+  void drawParagraph();
+};
+
+void TermiType::enableRawMode() {
+  tcgetattr(STDIN_FILENO, &term);
+  term.c_lflag &= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &term);
+
+  std::cout << WIPE_SCREEN HIDE_CURSOR;
+}
+
+void TermiType::disableRawMode() {
   tcgetattr(STDIN_FILENO, &term);
   term.c_lflag |= (ICANON | ECHO);
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &term);
+
+  std::cout << WIPE_SCREEN SHOW_CURSOR;
 }
 
-void handle_exit(int signal) {
-  disable_raw_mode();
-  std::cout << WIPE_SCREEN << SHOW_CURSOR;
+void TermiType::handleExit(int signal) {
+  disableRawMode();
   exit(0);
 }
 
-class TypingTest {
-private:
-  long long start_time;
-  std::string paragraph;
-  std::string typed;
-  int errors;
-
-public:
-  TypingTest() : start_time(0), errors(0) {}
-
-  void run(int word_count);
-  void draw_paragraph();
-  void generate_paragraph(int count);
-  void disable_raw_mode();
-  char get_char();
-  void display_results();
-  long long millis() const;
-  int error_count() const;
-};
-
-char TypingTest::get_char() {
-  struct termios oldt, newt;
-  char c;
-  tcgetattr(STDIN_FILENO, &oldt);
-  newt = oldt;
-  newt.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-  c = getchar();
-  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-  return c;
-}
-
-void TypingTest::generate_paragraph(int count) {
+void TermiType::generateParagraph(unsigned int count) {
   paragraph.clear();
   srand(static_cast<unsigned>(time(nullptr)));
-  for (int i = 0; i < count; ++i) {
+  for (size_t i = 0; i < count; i++) {
     paragraph += words[rand() % words.size()] + " ";
   }
-  paragraph.pop_back(); // Remove trailing space
+  paragraph.pop_back();
 }
 
-void TypingTest::draw_paragraph() {
-  std::cout << WIPE_SCREEN << RESET;
+void TermiType::drawParagraph() {
+  std::cout << WIPE_SCREEN RESET;
 
-  struct winsize w;
-  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-  int top_padding = static_cast<int>(w.ws_row * 0.45);
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
+  unsigned top_padding = static_cast<unsigned>(window.ws_row * 0.47);
+  unsigned left_padding =
+      static_cast<unsigned>((window.ws_col - paragraph.length()) / 2);
 
-  for (int i = 0; i < top_padding; ++i) {
-    std::cout << '\n';
-  }
-
-  int left_padding = (w.ws_col - paragraph.length()) / 2;
-  if (left_padding > 0) {
-    std::cout << std::string(left_padding, ' ');
-  }
+  std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
 
   for (size_t i = 0; i < typed.length(); ++i) {
     if (paragraph[i] == typed[i])
@@ -121,85 +106,32 @@ void TypingTest::draw_paragraph() {
     std::cout << paragraph[i] << RESET;
   }
 
-  if (typed.length() < paragraph.length()) {
-    std::cout << WHITE_BACKGROUND BLACK;
-    std::cout << paragraph[typed.length()] << RESET;
-  }
+  std::cout << WHITE_BACKGROUND BLACK << paragraph[typed.length()] << RESET;
 
-  for (size_t i = typed.length() + 1; i < paragraph.length(); ++i) {
+  for (size_t i = typed.length() + 1; i < paragraph.length(); ++i)
     std::cout << paragraph[i];
-  }
-  std::cout << RESET << '\n';
 }
 
-long long TypingTest::millis() const {
-  struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC, &ts);
-  return ts.tv_sec * 1000LL + ts.tv_nsec / 1000000LL;
-}
-
-int TypingTest::error_count() const {
-  int count = 0;
-  for (size_t i = 0; i < paragraph.length(); ++i) {
-    if (i >= typed.length() || paragraph[i] != typed[i]) {
-      ++count;
-    }
-  }
-  return count;
-}
-
-void TypingTest::display_results() {
-  std::cout << WIPE_SCREEN << RESET;
-
-  float minutes = (millis() - start_time) / 60000.0f;
-  float wpm = (typed.length() / 5.0f) / minutes;
-
-  std::cout << "WPM: " << wpm << '\n';
-  std::cout << "Errors: " << error_count() << '\n';
-  std::cout << "Fixed Errors: " << (errors - error_count()) << '\n';
-}
-
-void TypingTest::run(int word_count) {
-  std::cout << HIDE_CURSOR;
-  generate_paragraph(word_count);
-  draw_paragraph();
+void TermiType::run(unsigned word_count) {
+  enableRawMode();
+  generateParagraph(word_count);
 
   while (typed.length() < paragraph.length()) {
-    char c = get_char();
+    drawParagraph();
+    char c = getchar();
 
-    if (c == 18) {
-      typed.clear();
-      errors = 0;
-      start_time = 0;
-      generate_paragraph(word_count);
-      draw_paragraph();
-      continue;
-    }
-
-    if (start_time <= 0) {
-      start_time = millis();
-    }
-
-    if (c != '\b' && c != 127) {
+    if (c != 127) {
       typed += c;
-      if (c != paragraph[typed.length() - 1]) {
-        ++errors;
-      }
     } else if (!typed.empty()) {
       typed.pop_back();
     }
-
-    draw_paragraph();
   }
-
-  display_results();
-  std::cout << SHOW_CURSOR;
+  disableRawMode();
 }
 
 int main(int argc, char *argv[]) {
-  signal(SIGINT, handle_exit);
-  int word_count = (argc == 2 && atoi(argv[1])) ? atoi(argv[1]) : 10;
-  TypingTest test;
-  test.run(word_count);
+  TermiType termi_type;
+  signal(SIGINT, termi_type.handleExit);
+  termi_type.run(10);
   return 0;
 }
