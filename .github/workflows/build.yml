@@ -20,7 +20,7 @@ jobs:
       - name: Build the project
         run: |
           mkdir -p build/x86_64
-          make
+          make -B
           mv ttype build/x86_64/ttype-x86_64
 
       - name: Upload artifact to GitHub Release
