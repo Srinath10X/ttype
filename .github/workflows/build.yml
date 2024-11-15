@@ -1,0 +1,57 @@
+name: Build C++ Project for Multiple Architectures
+
+on:
+  push:
+    branches: ["main", "dev", "rewrite"]
+  pull_request:
+    branches: ["main", "dev", "rewrite"]
+
+jobs:
+  build-x86_64:
+    runs-on: ubuntu-latest
+    name: Build for x86_64 Architecture
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up C++ build environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+
+      - name: Build for x86_64
+        run: |
+          mkdir -p build/x86_64
+          make
+          mv ttype build/x86_64/ttype-x86_64  # Move the binary into the correct folder
+
+      - name: Upload x86_64 binary as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ttype-x86_64
+          path: build/x86_64/ttype-x86_64
+
+  build-aarch64:
+    runs-on: ubuntu-latest
+    name: Build for aarch64 Architecture
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up C++ build environment for aarch64
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+
+      - name: Build for aarch64
+        run: |
+          mkdir -p build/aarch64
+          make
+          mv ttype build/aarch64/ttype-aarch64  # Move the binary into the correct folder
+
+      - name: Upload aarch64 binary as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ttype-aarch64
+          path: build/aarch64/ttype-aarch64
