@@ -18,13 +18,13 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y build-essential
 
       - name: Build the project
-        run: make build
-
-      - name: Run checks
-        run: make check
+        run: make -B
 
       - name: Install the binary (for testing purposes)
         run: make install
+
+      - name: Run checks
+        run: make check
 
       - name: Clean up build artifacts
         run: make clean
