@@ -102,7 +102,7 @@ void TypingTest::draw_paragraph() {
 
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-  unsigned top_padding = static_cast<unsigned>(w.ws_row * 0.45);
+  unsigned top_padding = static_cast<unsigned>(w.ws_row * 0.47);
   unsigned left_padding =
       static_cast<unsigned>((w.ws_col - paragraph.length()) / 2);
 
@@ -117,15 +117,10 @@ void TypingTest::draw_paragraph() {
     std::cout << paragraph[i] << RESET;
   }
 
-  if (typed.length() < paragraph.length()) {
-    std::cout << WHITE_BACKGROUND BLACK;
-    std::cout << paragraph[typed.length()] << RESET;
-  }
+  std::cout << WHITE_BACKGROUND BLACK << paragraph[typed.length()] << RESET;
 
-  for (size_t i = typed.length() + 1; i < paragraph.length(); ++i) {
+  for (size_t i = typed.length() + 1; i < paragraph.length(); ++i)
     std::cout << paragraph[i];
-  }
-  std::cout << RESET << '\n';
 }
 
 long long TypingTest::millis() const {
