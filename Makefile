@@ -30,7 +30,6 @@ $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILE)
 	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 check: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
-	@echo "Running checks..."
-	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) || echo "Check failed!"
+	echo "Running check" | ./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 .PHONY: all clean build install run check
