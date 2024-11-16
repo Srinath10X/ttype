@@ -15,8 +15,14 @@
         src = ./.;
 
         buildInputs = [ pkgs.gcc pkgs.gnumake ];
+
         buildPhase = "make build";
-        installPhase = ''mkdir -p $out/bin && cp ttype $out/bin/'';
+
+        installPhase = ''
+          mkdir -p $out/bin
+          cp ./build/x86_64/ttype-x86_64 $out/bin/ttype
+          chmod +x $out/bin/ttype
+        '';
 
         cleanPhase = "make clean";
       };
