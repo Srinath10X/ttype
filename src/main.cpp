@@ -15,7 +15,7 @@
  *-------------------------------------------------------------------*/
 
 #include <csignal>
-#include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <string>
 #include <sys/ioctl.h>
@@ -51,9 +51,9 @@ private:
 
 public:
   void run(unsigned word_count);
-  static void enableRawMode();
+  void enableRawMode();
   static void disableRawMode();
-  static void handleExit(int signal);
+  static void signalHandler(int signal);
   void generateParagraph(unsigned count);
   void drawParagraph();
 };
@@ -63,41 +63,36 @@ void TermiType::enableRawMode() {
   term.c_lflag &= ~(ICANON | ECHO);
   tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
-  std::cout << WIPE_SCREEN HIDE_CURSOR;
+  std::cout << WIPE_SCREEN << HIDE_CURSOR;
 }
 
 void TermiType::disableRawMode() {
-  tcgetattr(STDIN_FILENO, &term);
   term.c_lflag |= (ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSAFLUSH, &term);
+  tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
-  std::cout << WIPE_SCREEN SHOW_CURSOR;
-}
-
-void TermiType::handleExit(int signal) {
-  disableRawMode();
+  std::cout << WIPE_SCREEN << SHOW_CURSOR;
   exit(0);
 }
 
-void TermiType::generateParagraph(unsigned int count) {
+void TermiType::generateParagraph(unsigned count) {
   paragraph.clear();
-  srand(static_cast<unsigned>(time(nullptr)));
-  for (size_t i = 0; i < count; i++) {
+  for (unsigned i = 0; i < count; ++i) {
     paragraph += words[rand() % words.size()] + " ";
   }
   paragraph.pop_back();
 }
 
-void TermiType::drawParagraph() {
-  std::cout << WIPE_SCREEN RESET;
+void TermiType::signalHandler(int signal) { disableRawMode(); }
 
+void TermiType::drawParagraph() {
+  std::cout << WIPE_SCREEN << RESET;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
+
   unsigned top_padding = static_cast<unsigned>(window.ws_row * 0.47);
   unsigned left_padding =
       static_cast<unsigned>((window.ws_col - paragraph.length()) / 2);
 
   std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
-
   for (size_t i = 0; i < typed.length(); ++i) {
     if (paragraph[i] == typed[i])
       std::cout << BLUE;
@@ -120,18 +115,24 @@ void TermiType::run(unsigned word_count) {
     drawParagraph();
     char c = getchar();
 
-    if (c != 127) {
+    if (c == 18) {
+      typed.clear();
+      generateParagraph(word_count);
+      continue;
+    } else if (c != 127) {
       typed += c;
     } else if (!typed.empty()) {
       typed.pop_back();
     }
   }
+
   disableRawMode();
 }
 
 int main(int argc, char *argv[]) {
   TermiType termi_type;
-  signal(SIGINT, termi_type.handleExit);
+  signal(SIGINT, termi_type.signalHandler);
+  srand(static_cast<unsigned>(time(nullptr)));
   termi_type.run(10);
   return 0;
 }
