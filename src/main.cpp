@@ -88,7 +88,7 @@ void TermiType::drawParagraph() {
   std::cout << WIPE_SCREEN << RESET;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
 
-  unsigned top_padding = static_cast<unsigned>(window.ws_row * 0.47);
+  unsigned top_padding = static_cast<unsigned>(window.ws_row * 0.48);
   unsigned left_padding =
       static_cast<unsigned>((window.ws_col - paragraph.length()) / 2);
 
