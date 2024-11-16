@@ -1,36 +1,34 @@
 {
-	description = "TermiType 🚀: A terminal-based typing test application built with C++";
+  description = "TermiType 🚀: A terminal-based typing test application built with C++";
 
-	inputs.nixpkgs.url = "github:nixos/nixpkgs";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
 
-	outputs = { self, nixpkgs }:
-		let
-			pkgs = import nixpkgs { system = "x86_64-linux"; };
+  outputs = { self, nixpkgs }:
+    let
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+    in
+    {
+      packages.x86_64-linux.default = pkgs.stdenv.mkDerivation {
+        pname = "ttype";
+        version = "v1.0.0";
 
-			BIN_FILE_NAME = "ttype";
-		in
-			{
-			packages.x86_64-linux.default = pkgs.stdenv.mkDerivation {
-				pname = "ttype";
-				version = "v1.0.0";
+        src = ./.;
 
-				src = ./.;
+        buildInputs = [ pkgs.gcc pkgs.gnumake ];
 
-				buildInputs = [ pkgs.gcc pkgs.gnumake ];
-				buildPhase = "make build";
-				installPhase = ''
-					mkdir -p $out/bin
-					cp ${BIN_FILE_NAME} $out/bin/
-					'';
+        buildPhase = "make build";
 
-				cleanPhase = "make clean";
-			};
+        installPhase = ''
+          mkdir -p $out/bin
+          cp ./build/x86_64/ttype-x86_64 $out/bin/ttype
+          chmod +x $out/bin/ttype
+        '';
 
-			devShells.x86_64-linux.default = pkgs.mkShell {
-				buildInputs = with pkgs; [
-					gcc
-					gnumake
-				];
-			};
-		};
+        cleanPhase = "make clean";
+      };
+
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        buildInputs = [ pkgs.gcc pkgs.gnumake ];
+      };
+    };
 }
