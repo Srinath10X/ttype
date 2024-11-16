@@ -6,10 +6,13 @@ BIN_FILE_NAME = ttype
 ARCH = $(shell uname -m)
 BIN_NAME_WITH_ARCH = $(BIN_FILE_NAME)-$(ARCH)
 
-INSTALL_DIR = $(HOME)/.local/bin/
+INSTALL_DIR = $(HOME)/.local/bin
 BUILD_DIR = build/$(ARCH)
 
 all: build
+
+clean:
+	rm -rf $(BUILD_DIR)
 
 build: $(SRC_FILE)
 	mkdir -p $(BUILD_DIR)
@@ -19,13 +22,15 @@ install: build
 	mkdir -p $(INSTALL_DIR)
 	mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
 
-run: build
-	mkdir -p $(BUILD_DIR)
+run: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
-check: build
+$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILE)
+	mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+
+check: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+	@echo "Running checks..."
 	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) || echo "Check failed!"
 
-clean:
-	rm -rf $(BUILD_DIR)
-
+.PHONY: all clean build install run check
