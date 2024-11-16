@@ -1,4 +1,4 @@
-# TermiType v1.0.1
+# TermiType v1.0.0
 
 **TermiType 🚀**: A terminal-based typing test application built with C++. Test and improve your typing speed while enjoying a minimal, distraction-free environment.
 
@@ -37,10 +37,10 @@
 ### Installation 💻
 
 1. Clone the repository to your local machine:
-   ```bash
-   git clone https://github.com/Srinath10X/ttype.git
-   cd ttype
-   ```
+```bash
+git clone https://github.com/Srinath10X/ttype.git
+cd ttype
+```
 
 2. Compile the source and Install confix :
 
@@ -56,9 +56,8 @@ export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 4. Run the program:
 ```bash
-ttype 15
+ttype
 ```
-*(Replace `15` with the number of words you'd like to type or It will take `10` words by default)*
 
 ## Usage 📖
 
@@ -85,7 +84,7 @@ Have ideas or found a bug? Contributions are welcome! Open an issue or submit a 
 
 ## License 📝
 
-ttype is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+ttype is licensed under the GPLV3 License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments 🙏
 
