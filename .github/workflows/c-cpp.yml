@@ -18,7 +18,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y build-essential
 
       - name: Build the project
-        run: make -B
+        run: make build
 
       - name: Install the binary (for testing purposes)
         run: make install
