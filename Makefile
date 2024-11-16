@@ -29,7 +29,4 @@ $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILE)
 	mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
-check: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
-	echo "Running check" | ./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) << EOF
-
 .PHONY: all clean build install run check
