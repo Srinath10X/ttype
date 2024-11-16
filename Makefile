@@ -3,19 +3,34 @@ CXXFLAGS = -g -Wall -Werror
 
 SRC_FILE = src/main.cpp
 BIN_FILE_NAME = ttype
+ARCH = $(shell uname -m)
+BIN_NAME_WITH_ARCH = $(BIN_FILE_NAME)-$(ARCH)
+
 INSTALL_DIR = $(HOME)/.local/bin/
+BUILD_DIR = build/$(ARCH)
 
 all: build
 
+clean:
+	rm -rf $(BUILD_DIR)
+
 build: $(SRC_FILE)
-	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BIN_FILE_NAME)
+	mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 install: build
 	mkdir -p $(INSTALL_DIR)
-	mv -f $(BIN_FILE_NAME) $(INSTALL_DIR)
+	mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
 
-check: build
-	./$(BIN_FILE_NAME) || echo "Check failed!"
+run: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
-clean:
-	rm -f $(BIN_FILE_NAME)
+$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILE)
+	mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+
+check: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+	@echo "Running checks..."
+	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) || echo "Check failed!"
+
+.PHONY: all clean build install run check
