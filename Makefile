@@ -20,6 +20,7 @@ install: build
 	mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
 
 run: build
+	mkdir -p $(BUILD_DIR)
 	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 check: build
