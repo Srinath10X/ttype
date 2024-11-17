@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -g -Wall -Werror
 
-SRC_FILE = src/main.cpp
+SRC_FILES = src/main.cpp src/terminal_handler.cpp
 BIN_FILE_NAME = ttype
 ARCH = $(shell uname -m)
 BIN_NAME_WITH_ARCH = $(BIN_FILE_NAME)-$(ARCH)
@@ -14,9 +14,9 @@ all: build
 clean:
 	rm -rf $(BUILD_DIR)
 
-build: $(SRC_FILE)
+build: $(SRC_FILES)
 	mkdir -p $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+	$(CXX) $(CXXFLAGS) $(SRC_FILES) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 install: build
 	mkdir -p $(INSTALL_DIR)
@@ -25,8 +25,8 @@ install: build
 run: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
-$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILE)
+$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILES)
 	mkdir -p $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) $(SRC_FILE) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
+	$(CXX) $(CXXFLAGS) $(SRC_FILES) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 .PHONY: all clean build install run check
