@@ -16,7 +16,7 @@
 
 #include "../include/constants.hpp"
 #include "../include/terminal_handler.hpp"
-#include <chrono>
+#include "../include/timer.hpp"
 #include <csignal>
 #include <cstdio>
 #include <iostream>
@@ -25,6 +25,7 @@
 #include <vector>
 
 TerminalHandler terminal;
+Timer timer;
 
 const std::vector<std::string> words = {
     "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
@@ -41,9 +42,6 @@ class TermiType {
 private:
   std::string paragraph;
   std::string typed;
-  std::chrono::high_resolution_clock::time_point start_time;
-  std::chrono::high_resolution_clock::time_point end_time;
-  bool timer_started = false;
   unsigned corrected_chars = 0;
 
 public:
@@ -88,8 +86,7 @@ void TermiType::displayResults() {
   std::cout << WIPE_SCREEN << RESET;
 
   unsigned top_padding = (window.ws_row - 2) / 2;
-  std::chrono::duration<double> duration = end_time - start_time;
-  double wpm = (typed.length() / 5.0) * (60 / duration.count());
+  double wpm = (typed.length() / 5.0) * (60 / timer.getDuration());
   unsigned accuracy = (corrected_chars * 100) / typed.length();
   unsigned left_padding =
       (window.ws_col - (std::to_string(wpm).length() + 5)) / 2;
@@ -110,15 +107,13 @@ void TermiType::run(unsigned word_count) {
     drawParagraph();
     char c = getchar();
 
-    if (!timer_started) {
-      start_time = std::chrono::high_resolution_clock::now();
-      timer_started = true;
+    if (!timer.is_started) {
+      timer.startTimer();
     }
 
     if (c == 18) {
       typed.clear();
       generateParagraph(word_count);
-      timer_started = false;
       corrected_chars = 0;
       continue;
     } else if (c != 127) {
@@ -132,7 +127,7 @@ void TermiType::run(unsigned word_count) {
       typed.pop_back();
     }
   }
-  end_time = std::chrono::high_resolution_clock::now();
+  timer.stopTimer();
 
   displayResults();
   terminal.disableRawMode();
