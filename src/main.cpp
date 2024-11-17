@@ -70,7 +70,6 @@ char TypingTest::get_char() {
 
 void TypingTest::generate_paragraph(unsigned count) {
   paragraph.clear();
-  srand(static_cast<unsigned>(time(nullptr)));
   for (unsigned i = 0; i < count; ++i) {
     paragraph += words[rand() % words.size()] + " ";
   }
@@ -169,6 +168,7 @@ void TypingTest::run(unsigned word_count) {
 
 int main(int argc, char *argv[]) {
   signal(SIGINT, handle_exit);
+  srand(static_cast<unsigned>(time(nullptr)));
   int word_count = (argc == 2 && atoi(argv[1])) ? atoi(argv[1]) : 10;
   TypingTest test;
   test.run(word_count);
