@@ -51,7 +51,8 @@ private:
   std::string typed;
   std::chrono::high_resolution_clock::time_point start_time;
   std::chrono::high_resolution_clock::time_point end_time;
-  bool timer_started;
+  bool timer_started = false;
+  unsigned corrected_chars = 0;
 
 public:
   void run(unsigned word_count);
@@ -115,14 +116,18 @@ void TermiType::drawParagraph() {
 void TermiType::displayResults() {
   std::cout << WIPE_SCREEN << RESET;
 
-  unsigned top_padding = (window.ws_row - 1) / 2;
+  unsigned top_padding = (window.ws_row - 2) / 2;
   std::chrono::duration<double> duration = end_time - start_time;
   double wpm = (typed.length() / 5.0) * (60 / duration.count());
+  unsigned accuracy = (corrected_chars * 100) / typed.length();
   unsigned left_padding =
       (window.ws_col - (std::to_string(wpm).length() + 5)) / 2;
 
   std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
   std::cout << "WPM: " << wpm << std::endl;
+
+  std::cout << std::string(left_padding, ' ') << "Accuracy: " << accuracy << "%"
+            << std::endl;
   getchar();
 }
 
@@ -143,10 +148,16 @@ void TermiType::run(unsigned word_count) {
       typed.clear();
       generateParagraph(word_count);
       timer_started = false;
+      corrected_chars = 0;
       continue;
     } else if (c != 127) {
       typed += c;
+      if (typed.back() == paragraph[typed.length() - 1])
+        corrected_chars++;
+
     } else if (!typed.empty()) {
+      if (typed.back() == paragraph[typed.length() - 1])
+        corrected_chars--;
       typed.pop_back();
     }
   }
