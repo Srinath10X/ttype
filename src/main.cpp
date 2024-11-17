@@ -86,11 +86,11 @@ void TermiType::signalHandler(int signal) { disableRawMode(); }
 
 void TermiType::drawParagraph() {
   std::cout << WIPE_SCREEN << RESET;
+
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
 
-  unsigned top_padding = static_cast<unsigned>(window.ws_row * 0.48);
-  unsigned left_padding =
-      static_cast<unsigned>((window.ws_col - paragraph.length()) / 2);
+  unsigned top_padding = (window.ws_row - 1) / 2;
+  unsigned left_padding = (window.ws_col - paragraph.length()) / 2;
 
   std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
   for (size_t i = 0; i < typed.length(); ++i) {
