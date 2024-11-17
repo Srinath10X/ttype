@@ -10,7 +10,7 @@
     {
       packages.x86_64-linux.default = pkgs.stdenv.mkDerivation {
         pname = "ttype";
-        version = "v1.0.0";
+        version = "v1.1.0";
 
         src = ./.;
 
