@@ -103,6 +103,7 @@ void TermiType::run(unsigned word_count) {
     if (c == 18) {
       typed.clear();
       generateParagraph(word_count);
+      timer.is_started = false;
       corrected_chars = 0;
       continue;
     } else if (c != 127) {
