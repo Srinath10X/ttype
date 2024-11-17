@@ -14,24 +14,17 @@
  |     Author :  Srinath10X                                           |
  *-------------------------------------------------------------------*/
 
+#include "../include/constants.hpp"
+#include "../include/terminal_handler.hpp"
 #include <chrono>
 #include <csignal>
 #include <cstdio>
 #include <iostream>
 #include <string>
 #include <sys/ioctl.h>
-#include <termios.h>
-#include <unistd.h>
 #include <vector>
 
-#define HIDE_CURSOR "\033[?25l"
-#define SHOW_CURSOR "\033[?25h"
-#define WIPE_SCREEN "\033[2J\033[H"
-#define RESET "\033[0m"
-#define BLUE "\033[34m"
-#define RED_UNDERLINE "\033[4;31m"
-#define WHITE_BACKGROUND "\033[47m"
-#define BLACK "\033[30m"
+TerminalHandler terminal;
 
 const std::vector<std::string> words = {
     "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
@@ -42,7 +35,6 @@ const std::vector<std::string> words = {
     "meant", "shell", "neck",  "program", "public", "look",  "name", "bee",
 };
 
-struct termios term;
 struct winsize window;
 
 class TermiType {
@@ -56,29 +48,10 @@ private:
 
 public:
   void run(unsigned word_count);
-  void enableRawMode();
-  static void disableRawMode();
-  static void signalHandler(int signal);
   void generateParagraph(unsigned count);
   void drawParagraph();
   void displayResults();
 };
-
-void TermiType::enableRawMode() {
-  tcgetattr(STDIN_FILENO, &term);
-  term.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &term);
-
-  std::cout << WIPE_SCREEN << HIDE_CURSOR;
-}
-
-void TermiType::disableRawMode() {
-  term.c_lflag |= (ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &term);
-
-  std::cout << WIPE_SCREEN << SHOW_CURSOR;
-  exit(0);
-}
 
 void TermiType::generateParagraph(unsigned count) {
   paragraph.clear();
@@ -87,8 +60,6 @@ void TermiType::generateParagraph(unsigned count) {
   }
   paragraph.pop_back();
 }
-
-void TermiType::signalHandler(int signal) { disableRawMode(); }
 
 void TermiType::drawParagraph() {
   std::cout << WIPE_SCREEN << RESET;
@@ -132,7 +103,7 @@ void TermiType::displayResults() {
 }
 
 void TermiType::run(unsigned word_count) {
-  enableRawMode();
+  terminal.enableRawMode();
   generateParagraph(word_count);
 
   while (typed.length() < paragraph.length()) {
@@ -164,12 +135,12 @@ void TermiType::run(unsigned word_count) {
   end_time = std::chrono::high_resolution_clock::now();
 
   displayResults();
-  disableRawMode();
+  terminal.disableRawMode();
 }
 
 int main(int argc, char *argv[]) {
   TermiType termi_type;
-  signal(SIGINT, termi_type.signalHandler);
+  signal(SIGINT, terminal.signalHandler);
   srand(static_cast<unsigned>(time(nullptr)));
   termi_type.run(10);
   return 0;
