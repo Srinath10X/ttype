@@ -14,6 +14,7 @@
  |     Author :  Srinath10X                                           |
  *-------------------------------------------------------------------*/
 
+#include <chrono>
 #include <csignal>
 #include <cstdio>
 #include <iostream>
@@ -48,6 +49,9 @@ class TermiType {
 private:
   std::string paragraph;
   std::string typed;
+  std::chrono::high_resolution_clock::time_point start_time;
+  std::chrono::high_resolution_clock::time_point end_time;
+  bool timer_started;
 
 public:
   void run(unsigned word_count);
@@ -56,6 +60,7 @@ public:
   static void signalHandler(int signal);
   void generateParagraph(unsigned count);
   void drawParagraph();
+  void displayResults();
 };
 
 void TermiType::enableRawMode() {
@@ -107,6 +112,20 @@ void TermiType::drawParagraph() {
     std::cout << paragraph[i];
 }
 
+void TermiType::displayResults() {
+  std::cout << WIPE_SCREEN << RESET;
+
+  unsigned top_padding = (window.ws_row - 1) / 2;
+  std::chrono::duration<double> duration = end_time - start_time;
+  double wpm = (typed.length() / 5.0) * (60 / duration.count());
+  unsigned left_padding =
+      (window.ws_col - (std::to_string(wpm).length() + 5)) / 2;
+
+  std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
+  std::cout << "WPM: " << wpm << std::endl;
+  getchar();
+}
+
 void TermiType::run(unsigned word_count) {
   enableRawMode();
   generateParagraph(word_count);
@@ -115,9 +134,15 @@ void TermiType::run(unsigned word_count) {
     drawParagraph();
     char c = getchar();
 
+    if (!timer_started) {
+      start_time = std::chrono::high_resolution_clock::now();
+      timer_started = true;
+    }
+
     if (c == 18) {
       typed.clear();
       generateParagraph(word_count);
+      timer_started = false;
       continue;
     } else if (c != 127) {
       typed += c;
@@ -125,7 +150,9 @@ void TermiType::run(unsigned word_count) {
       typed.pop_back();
     }
   }
+  end_time = std::chrono::high_resolution_clock::now();
 
+  displayResults();
   disableRawMode();
 }
 
