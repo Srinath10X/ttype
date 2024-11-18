@@ -16,6 +16,7 @@
 
 #include "../include/constants.hpp"
 #include "../include/terminal_handler.hpp"
+#include "../include/text_generator.hpp"
 #include "../include/timer.hpp"
 #include <csignal>
 #include <cstdio>
@@ -24,6 +25,7 @@
 
 TerminalHandler terminal;
 Timer timer;
+TextGenerator text_generator;
 
 struct winsize window;
 
@@ -35,18 +37,9 @@ private:
 
 public:
   void run(unsigned word_count);
-  void generateParagraph(unsigned count);
   void drawParagraph();
   void displayResults();
 };
-
-void TermiType::generateParagraph(unsigned count) {
-  paragraph.clear();
-  for (unsigned i = 0; i < count; ++i) {
-    paragraph += words[rand() % words.size()] + " ";
-  }
-  paragraph.pop_back();
-}
 
 void TermiType::drawParagraph() {
   std::cout << WIPE_SCREEN << RESET;
@@ -90,7 +83,7 @@ void TermiType::displayResults() {
 
 void TermiType::run(unsigned word_count) {
   terminal.enableRawMode();
-  generateParagraph(word_count);
+  paragraph = text_generator.generateParagraph(word_count);
 
   while (typed.length() < paragraph.length()) {
     drawParagraph();
@@ -102,7 +95,7 @@ void TermiType::run(unsigned word_count) {
 
     if (c == 18) {
       typed.clear();
-      generateParagraph(word_count);
+      paragraph = text_generator.generateParagraph(word_count);
       timer.is_started = false;
       corrected_chars = 0;
       continue;
