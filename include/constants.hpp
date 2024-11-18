@@ -1,18 +1,6 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#include <string>
-#include <vector>
-
-const std::vector<std::string> words = {
-    "the",   "of",    "to",    "and",     "a",      "in",    "is",   "it",
-    "you",   "that",  "he",    "was",     "for",    "on",    "are",  "with",
-    "as",    "I",     "they",  "be",      "at",     "one",   "have", "this",
-    "from",  "or",    "by",    "not",     "word",   "but",   "what", "some",
-    "we",    "can",   "occur", "support", "nature", "range", "path", "log",
-    "meant", "shell", "neck",  "program", "public", "look",  "name", "bee",
-};
-
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
 #define WIPE_SCREEN "\033[2J\033[H"
