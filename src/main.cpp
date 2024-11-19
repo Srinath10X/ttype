@@ -18,6 +18,7 @@
 #include "../include/terminal_handler.hpp"
 #include "../include/text_generator.hpp"
 #include "../include/timer.hpp"
+#include "../include/ui_handler.hpp"
 #include <csignal>
 #include <cstdio>
 #include <iostream>
@@ -26,6 +27,7 @@
 TerminalHandler terminal;
 Timer timer;
 TextGenerator text_generator;
+UiHandler ui;
 
 struct winsize window;
 
@@ -42,7 +44,7 @@ public:
 };
 
 void TermiType::drawParagraph() {
-  std::cout << WIPE_SCREEN << RESET;
+  ui.wipeAndResetScreen();
 
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
 
@@ -65,7 +67,7 @@ void TermiType::drawParagraph() {
 }
 
 void TermiType::displayResults() {
-  std::cout << WIPE_SCREEN << RESET;
+  ui.wipeAndResetScreen();
 
   unsigned top_padding = (window.ws_row - 2) / 2;
   double wpm = (typed.length() / 5.0) * (60 / timer.getDuration());
