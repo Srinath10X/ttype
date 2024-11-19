@@ -15,10 +15,10 @@
  *-------------------------------------------------------------------*/
 
 #include "../include/constants.hpp"
-#include "../include/terminal_handler.hpp"
-#include "../include/text_generator.hpp"
-#include "../include/timer.hpp"
-#include "../include/ui_handler.hpp"
+#include "../include/handlers/terminal_handler.hpp"
+#include "../include/handlers/ui_handler.hpp"
+#include "../include/modules/text_generator.hpp"
+#include "../include/modules/timer.hpp"
 #include <csignal>
 #include <cstdio>
 #include <iostream>

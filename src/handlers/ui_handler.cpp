@@ -1,5 +1,5 @@
-#include "../include/ui_handler.hpp"
-#include "../include/constants.hpp"
+#include "../../include/handlers/ui_handler.hpp"
+#include "../../include/constants.hpp"
 #include <iostream>
 #include <unistd.h>
 

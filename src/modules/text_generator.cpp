@@ -1,4 +1,4 @@
-#include "../include/text_generator.hpp"
+#include "../../include/modules/text_generator.hpp"
 
 std::string TextGenerator::generateParagraph(unsigned count) {
   paragraph.clear();
