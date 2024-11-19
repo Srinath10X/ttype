@@ -1,5 +1,5 @@
-#include "../include/terminal_handler.hpp"
-#include "../include/constants.hpp"
+#include "../../include/handlers/terminal_handler.hpp"
+#include "../../include/constants.hpp"
 #include <iostream>
 #include <unistd.h>
 

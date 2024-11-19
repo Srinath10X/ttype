@@ -1,7 +1,12 @@
 CXX = g++
 CXXFLAGS = -g -Wall -Werror
 
-SRC_FILES = src/main.cpp src/terminal_handler.cpp src/timer.cpp src/text_generator.cpp src/ui_handler.cpp
+SRC_FILES = src/main.cpp \
+						src/handlers/terminal_handler.cpp \
+						src/handlers/ui_handler.cpp \
+						src/modules/timer.cpp \
+						src/modules/text_generator.cpp
+
 BIN_FILE_NAME = ttype
 ARCH = $(shell uname -m)
 BIN_NAME_WITH_ARCH = $(BIN_FILE_NAME)-$(ARCH)
