@@ -29,8 +29,6 @@ Timer timer;
 TextGenerator text_generator;
 UiHandler ui;
 
-struct winsize window;
-
 class TermiType {
 private:
   std::string paragraph;
@@ -45,11 +43,10 @@ public:
 
 void TermiType::drawParagraph() {
   ui.wipeAndResetScreen();
+  ui.getContext();
 
-  ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
-
-  unsigned top_padding = (window.ws_row - 1) / 2;
-  unsigned left_padding = (window.ws_col - paragraph.length()) / 2;
+  unsigned top_padding = (ui.window.ws_row - 1) / 2;
+  unsigned left_padding = (ui.window.ws_col - paragraph.length()) / 2;
 
   std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
   for (size_t i = 0; i < typed.length(); ++i) {
@@ -69,11 +66,11 @@ void TermiType::drawParagraph() {
 void TermiType::displayResults() {
   ui.wipeAndResetScreen();
 
-  unsigned top_padding = (window.ws_row - 2) / 2;
+  unsigned top_padding = (ui.window.ws_row - 2) / 2;
   double wpm = (typed.length() / 5.0) * (60 / timer.getDuration());
   unsigned accuracy = (corrected_chars * 100) / typed.length();
   unsigned left_padding =
-      (window.ws_col - (std::to_string(wpm).length() + 5)) / 2;
+      (ui.window.ws_col - (std::to_string(wpm).length() + 5)) / 2;
 
   std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
   std::cout << "WPM: " << wpm << std::endl;
