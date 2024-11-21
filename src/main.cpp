@@ -19,7 +19,6 @@
 #include "../include/handlers/ui_handler.hpp"
 #include "../include/modules/text_generator.hpp"
 #include "../include/modules/timer.hpp"
-#include <csignal>
 #include <cstdio>
 #include <iostream>
 
@@ -117,8 +116,8 @@ void TermiType::run(unsigned word_count) {
 
 int main(int argc, char *argv[]) {
   TermiType termi_type;
-  signal(SIGINT, terminal.signalHandler);
   srand(static_cast<unsigned>(time(nullptr)));
+  terminal.registerSignalHandler();
   termi_type.run(10);
   return 0;
 }
