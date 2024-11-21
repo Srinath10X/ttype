@@ -19,7 +19,6 @@
 #include "../include/handlers/ui_handler.hpp"
 #include "../include/modules/text_generator.hpp"
 #include "../include/modules/timer.hpp"
-#include <cstdio>
 #include <iostream>
 
 TerminalHandler terminal;
@@ -27,6 +26,7 @@ Timer timer;
 TextGenerator text_generator;
 UiHandler ui;
 
+// TODO: Move this class to another file
 class TermiType {
 private:
   std::string paragraph;
