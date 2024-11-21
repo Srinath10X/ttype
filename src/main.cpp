@@ -62,17 +62,21 @@ void TermiType::drawParagraph() {
 void TermiType::displayResults() {
   ui.wipeAndResetScreen();
 
-  unsigned top_padding = (ui.window.ws_row - 2) / 2;
+  unsigned top_padding = (ui.window.ws_row - 3) / 2;
   double wpm = (typed.length() / 5.0) * (60 / timer.getDuration());
   unsigned accuracy = (corrected_chars * 100) / typed.length();
   unsigned left_padding =
-      (ui.window.ws_col - (std::to_string(wpm).length() + 5)) / 2;
+      (ui.window.ws_col - (std::to_string(wpm).length() + 10)) / 2;
 
   std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
   std::cout << "WPM: " << wpm << std::endl;
 
   std::cout << std::string(left_padding, ' ') << "Accuracy: " << accuracy << "%"
             << std::endl;
+
+  std::cout << std::string(left_padding, ' ')
+            << "Seconds: " << timer.getDuration() << "(s)" << std::endl;
+
   getchar();
 }
 
