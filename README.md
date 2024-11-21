@@ -1,4 +1,4 @@
-# TermiType v1.0.1
+# TermiType v1.0.0
 
 **TermiType 🚀**: A terminal-based typing test application built with C++. Test and improve your typing speed while enjoying a minimal, distraction-free environment.
 
