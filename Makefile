@@ -11,7 +11,7 @@ BIN_FILE_NAME = ttype
 ARCH = $(shell uname -m)
 BIN_NAME_WITH_ARCH = $(BIN_FILE_NAME)-$(ARCH)
 
-INSTALL_DIR = $(HOME)/.local/bin/
+INSTALL_DIR = /usr/bin
 BUILD_DIR = build/$(ARCH)
 
 all: build
@@ -24,8 +24,8 @@ build: $(SRC_FILES)
 	$(CXX) $(CXXFLAGS) $(SRC_FILES) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 install: build
-	mkdir -p $(INSTALL_DIR)
-	mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
+	sudo mkdir -p $(INSTALL_DIR)
+	sudo mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
 
 run: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)

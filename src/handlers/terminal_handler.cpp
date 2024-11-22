@@ -1,5 +1,6 @@
 #include "../../include/handlers/terminal_handler.hpp"
 #include "../../include/constants.hpp"
+#include <csignal>
 #include <iostream>
 #include <unistd.h>
 
@@ -23,4 +24,8 @@ void TerminalHandler::disableRawMode() {
 
 void TerminalHandler::signalHandler(int signal) {
   TerminalHandler::disableRawMode();
+}
+
+void TerminalHandler::registerSignalHandler() {
+  signal(SIGINT, TerminalHandler::signalHandler);
 }
