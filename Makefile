@@ -11,7 +11,7 @@ BIN_FILE_NAME = ttype
 ARCH = $(shell uname -m)
 BIN_NAME_WITH_ARCH = $(BIN_FILE_NAME)-$(ARCH)
 
-INSTALL_DIR = $(HOME)/.local/bin/
+INSTALL_DIR = /usr/bin
 BUILD_DIR = build/$(ARCH)
 
 all: build
