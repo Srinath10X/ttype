@@ -36,6 +36,15 @@
 
 ### Installation 💻
 
+#### For Archlinux users
+TermiType is available in aur you can use any aur helper to download `ttype`
+> Only version 1.0.0 is available in aur. v1.1.0 will be updated soon after a few weeks
+```bash
+yay -S ttype
+```
+
+#### Build it from source
+
 1. Clone the repository to your local machine:
 ```bash
 git clone https://github.com/Srinath10X/ttype.git
@@ -45,16 +54,10 @@ cd ttype
 2. Compile the source and Install confix :
 
 ```bash
-make install
+sudo make install
 ```
 
-3. Ensure your local bin directory is in your PATH (if not already):
-
-```bash
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-```
-
-4. Run the program:
+3. Run the program:
 ```bash
 ttype
 ```
@@ -63,7 +66,7 @@ ttype
 
 - **Start the Test:** Run `ttype` from the terminal, and the paragraph will appear centered on the screen.
 - **Restart Test:** Press `Ctrl + R` to reset the paragraph and start a new test.
-- **Exit Mid-Test:** Press `Ctrl + C` to exit at any time.
+- **Exit Mid-Test:** Press `Ctrl + C` or `Ctrl + D` to exit at any time.
 
 ### Sample Output:
 ```
@@ -79,7 +82,7 @@ Accuracy: 100%
 
 ## Contributing 🤝
 
-Have ideas or found a bug? Contributions are welcome! Open an issue or submit a pull request to improve ttype.
+Have ideas or found a bug? Contributions are welcome! checkout the [CONTRIBUTING](CONTRIBUTING.md) file for more details.
 
 ## License 📝
 
