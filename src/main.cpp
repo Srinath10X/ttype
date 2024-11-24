@@ -35,8 +35,9 @@ private:
 
 public:
   void run(unsigned word_count);
+  void reset(unsigned word_count);
   void drawParagraph();
-  void displayResults();
+  void displayResults(unsigned word_count);
 };
 
 void TermiType::drawParagraph() {
@@ -58,8 +59,9 @@ void TermiType::drawParagraph() {
     std::cout << paragraph[i];
 }
 
-void TermiType::displayResults() {
+void TermiType::displayResults(unsigned word_count) {
   ui.wipeAndResetScreen();
+  char c;
 
   unsigned top_padding = (ui.window.ws_row - 3) / 2;
   double wpm = (typed.length() / 5.0) * (60 / timer.getDuration());
@@ -76,7 +78,24 @@ void TermiType::displayResults() {
   std::cout << std::string(left_padding, ' ')
             << "Seconds: " << timer.getDuration() << "(s)" << std::endl;
 
-  getchar();
+  while (true) {
+    c = getchar();
+
+    if (c == 27) {
+      reset(word_count);
+      TermiType::run(word_count);
+    }
+    if (c == 4) {
+      break;
+    }
+  }
+}
+
+void TermiType::reset(unsigned word_count) {
+  typed.clear();
+  paragraph = text_generator.generateParagraph(word_count);
+  timer.is_started = false;
+  corrected_chars = 0;
 }
 
 void TermiType::run(unsigned word_count) {
@@ -92,10 +111,7 @@ void TermiType::run(unsigned word_count) {
     }
 
     if (c == 18) {
-      typed.clear();
-      paragraph = text_generator.generateParagraph(word_count);
-      timer.is_started = false;
-      corrected_chars = 0;
+      reset(word_count);
       continue;
     } else if (c != 127) {
       typed += c;
@@ -110,7 +126,7 @@ void TermiType::run(unsigned word_count) {
   }
   timer.stopTimer();
 
-  displayResults();
+  displayResults(word_count);
   terminal.disableRawMode();
 }
 
