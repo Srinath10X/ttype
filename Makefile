@@ -24,8 +24,8 @@ build: $(SRC_FILES)
 	$(CXX) $(CXXFLAGS) $(SRC_FILES) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
 install: build
-	sudo mkdir -p $(INSTALL_DIR)
-	sudo mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
+	mkdir -p $(INSTALL_DIR)
+	mv -f $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH) $(INSTALL_DIR)/$(BIN_FILE_NAME)
 
 run: $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 	./$(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
