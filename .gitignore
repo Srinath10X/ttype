@@ -37,7 +37,3 @@ result
 *.exe
 *.out
 *.app
-confix
-
-# Build artifacts
-result
