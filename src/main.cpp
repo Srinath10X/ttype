@@ -73,7 +73,7 @@ void TermiType::displayResults(unsigned word_count) {
   std::cout << "WPM: " << wpm << std::endl;
   ui.paddingLeftWithOffset(left_padding_offset);
   std::cout << "Accuracy: " << accuracy << "%" << std::endl;
-  ui.paddingLeft(left_padding_offset);
+  ui.paddingLeftWithOffset(left_padding_offset);
   std::cout << "Seconds: " << duration << "(s)" << std::endl;
 
   char c;
