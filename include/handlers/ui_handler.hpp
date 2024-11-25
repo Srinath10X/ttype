@@ -9,8 +9,8 @@ public:
 
   void getContext();
   void wipeAndResetScreen();
-  void paddingTop(unsigned offset);
-  void paddingLeft(unsigned offset);
+  void paddingTopWithOffset(unsigned offset);
+  void paddingLeftWithOffset(unsigned offset);
   void alignContentWithOffset(unsigned offsetX, unsigned offsetY);
 };
 

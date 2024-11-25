@@ -7,11 +7,11 @@ void UiHandler::wipeAndResetScreen() { std::cout << WIPE_SCREEN RESET; }
 
 void UiHandler::getContext() { ioctl(STDOUT_FILENO, TIOCGWINSZ, &window); }
 
-void UiHandler::paddingTop(unsigned offset) {
+void UiHandler::paddingTopWithOffset(unsigned offset) {
   std::cout << std::string(window.ws_row - offset, '\n');
 }
 
-void UiHandler::paddingLeft(unsigned offset) {
+void UiHandler::paddingLeftWithOffset(unsigned offset) {
   std::cout << std::string(window.ws_col - offset, ' ');
 }
 

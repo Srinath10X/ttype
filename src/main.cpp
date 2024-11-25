@@ -36,11 +36,11 @@ private:
 public:
   void run(unsigned word_count);
   void reset(unsigned word_count);
-  void drawParagraph();
+  void drawParagraph(std::string paragraph, std::string typed);
   void displayResults(unsigned word_count);
 };
 
-void TermiType::drawParagraph() {
+void TermiType::drawParagraph(std::string paragraph, std::string typed) {
   ui.wipeAndResetScreen();
   ui.getContext();
   ui.alignContentWithOffset(paragraph.length(), 1);
@@ -84,8 +84,7 @@ void TermiType::displayResults(unsigned word_count) {
     if (c == 27) {
       reset(word_count);
       TermiType::run(word_count);
-    }
-    if (c == 4) {
+    } else if (c == 4) {
       break;
     }
   }
@@ -103,7 +102,7 @@ void TermiType::run(unsigned word_count) {
   paragraph = text_generator.generateParagraph(word_count);
 
   while (typed.length() < paragraph.length()) {
-    drawParagraph();
+    drawParagraph(paragraph, typed);
     char c = getchar();
 
     if (!timer.is_started) {
