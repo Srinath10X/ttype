@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -Wall -Werror
+CXXFLAGS = -g -Wall -Werror -I include
 
 SRC_FILES = src/main.cpp \
 						src/handlers/terminal_handler.cpp \
