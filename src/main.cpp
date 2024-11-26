@@ -54,9 +54,7 @@ void TermiType::drawParagraph(std::string paragraph, std::string typed) {
   }
 
   std::cout << WHITE_BACKGROUND BLACK << paragraph[typed.length()] << RESET;
-
-  for (size_t i = typed.length() + 1; i < paragraph.length(); ++i)
-    std::cout << paragraph[i];
+  std::cout << paragraph.substr(typed.length() + 1);
 }
 
 void TermiType::displayResults(unsigned word_count) {
