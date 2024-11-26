@@ -61,23 +61,22 @@ void TermiType::drawParagraph(std::string paragraph, std::string typed) {
 
 void TermiType::displayResults(unsigned word_count) {
   ui.wipeAndResetScreen();
-  char c;
 
-  unsigned top_padding = (ui.window.ws_row - 3) / 2;
   double wpm = (typed.length() / 5.0) * (60 / timer.getDuration());
   unsigned accuracy = (corrected_chars * 100) / typed.length();
-  unsigned left_padding =
-      (ui.window.ws_col - (std::to_string(wpm).length() + 10)) / 2;
+  double duration = timer.getDuration();
 
-  std::cout << std::string(top_padding, '\n') << std::string(left_padding, ' ');
+  unsigned left_padding_offset = std::to_string(wpm).length() + 10;
+  unsigned top_padding_offset = 3;
+
+  ui.alignContentWithOffset(left_padding_offset, top_padding_offset);
   std::cout << "WPM: " << wpm << std::endl;
+  ui.paddingLeftWithOffset(left_padding_offset);
+  std::cout << "Accuracy: " << accuracy << "%" << std::endl;
+  ui.paddingLeftWithOffset(left_padding_offset);
+  std::cout << "Seconds: " << duration << "(s)" << std::endl;
 
-  std::cout << std::string(left_padding, ' ') << "Accuracy: " << accuracy << "%"
-            << std::endl;
-
-  std::cout << std::string(left_padding, ' ')
-            << "Seconds: " << timer.getDuration() << "(s)" << std::endl;
-
+  char c;
   while (true) {
     c = getchar();
 

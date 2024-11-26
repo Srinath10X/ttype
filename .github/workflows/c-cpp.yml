@@ -24,7 +24,7 @@ jobs:
         run: make check
 
       - name: Install the binary (for testing purposes)
-        run: make install
+        run: sudo make install
 
       - name: Clean up build artifacts
         run: make clean

@@ -30,20 +30,23 @@
 
 ### Prerequisites
 
-- A C++ compiler (e.g., `g++`).
+- A C++ compiler (e.g., `g++`, `clang++`).
 - Works on Linux and MacOS. For Windows, consider using WSL.
 - A terminal that supports ANSI escape sequences.
 
 ### Installation 💻
 
 #### For Archlinux users
+
 TermiType is available in aur you can use any aur helper to download `ttype`
-> Only version 1.0.0 is available in aur. v1.1.0 will be updated soon after a few weeks
+> Only version 1.0.0 is available in aur. v1.1.0 will be updated soon within 2 weeks
 ```bash
 yay -S ttype
 ```
 
 #### Build it from source
+
+Note: If you are using clang instead of gcc, you have to change the Makefile by replacing `CXX=g++` with `CXX = clang++`
 
 1. Clone the repository to your local machine:
 ```bash
@@ -70,8 +73,9 @@ ttype
 
 ### Sample Output:
 ```
-WPM: 47
+WPM: 101.796
 Accuracy: 100%
+Seconds: 4.71531(s)
 ```
 
 ## Customization 🎨
