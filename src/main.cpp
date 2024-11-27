@@ -14,11 +14,11 @@
  |     Author :  Srinath10X                                           |
  *-------------------------------------------------------------------*/
 
-#include "../include/constants.hpp"
-#include "../include/handlers/terminal_handler.hpp"
-#include "../include/handlers/ui_handler.hpp"
-#include "../include/modules/text_generator.hpp"
-#include "../include/modules/timer.hpp"
+#include "constants.hpp"
+#include "handlers/terminal_handler.hpp"
+#include "handlers/ui_handler.hpp"
+#include "modules/text_generator.hpp"
+#include "modules/timer.hpp"
 #include <iostream>
 
 TerminalHandler terminal;
@@ -36,7 +36,7 @@ private:
 public:
   void run(unsigned word_count);
   void reset(unsigned word_count);
-  void drawParagraph(std::string paragraph, std::string typed);
+  static void drawParagraph(std::string paragraph, std::string typed);
   void displayResults(unsigned word_count);
 };
 
@@ -54,9 +54,7 @@ void TermiType::drawParagraph(std::string paragraph, std::string typed) {
   }
 
   std::cout << WHITE_BACKGROUND BLACK << paragraph[typed.length()] << RESET;
-
-  for (size_t i = typed.length() + 1; i < paragraph.length(); ++i)
-    std::cout << paragraph[i];
+  std::cout << paragraph.substr(typed.length() + 1);
 }
 
 void TermiType::displayResults(unsigned word_count) {
