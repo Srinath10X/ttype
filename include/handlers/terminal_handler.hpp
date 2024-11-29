@@ -5,13 +5,13 @@
 
 class TerminalHandler {
 private:
-  static struct termios term;
+	static struct termios term;
 
 public:
-  void enableRawMode();
-  static void disableRawMode();
-  static void signalHandler(int signal);
-  static void registerSignalHandler();
+	void enableRawMode();
+	static void disableRawMode();
+	static void signalHandler(int signal);
+	static void registerSignalHandler();
 };
 
 #endif // !TERMINAL_HANDLER_HPP
