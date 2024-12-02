@@ -30,7 +30,7 @@
 
 ### Prerequisites
 
-- A C++ compiler (e.g., `g++`, `clang++`).
+- A C++ compiler (e.g., `g++`, `clang++`, `c++`).
 - Works on Linux and MacOS. For Windows, consider using WSL.
 - A terminal that supports ANSI escape sequences.
 
@@ -46,7 +46,7 @@ yay -S ttype
 
 #### Build it from source
 
-Note: If you are using clang instead of gcc, you have to change the Makefile by replacing `CXX=g++` with `CXX = clang++`
+Note: If you are using clang instead of gcc, you have to change the Makefile by replacing `CXX=c++` `CXX=g++` or `CXX = clang++`
 
 1. Clone the repository to your local machine:
 ```bash

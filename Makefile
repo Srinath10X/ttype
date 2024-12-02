@@ -1,4 +1,4 @@
-CXX = g++
+CXX = c++
 CXXFLAGS = -g -Wall -Werror -I include
 
 SRC_FILES = src/main.cpp \
