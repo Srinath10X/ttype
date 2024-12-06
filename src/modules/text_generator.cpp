@@ -2,8 +2,12 @@
 
 std::string TextGenerator::generateParagraph(unsigned count) {
 	paragraph.clear();
+	int temp;
 	for (unsigned i = 0; i < count; ++i) {
-		paragraph += words[rand() % words.size()] + " ";
+		int random_int = rand() % words.size();
+		if (temp == random_int) continue;
+		paragraph += words[random_int] + " ";
+		temp = random_int;
 	}
 	paragraph.pop_back();
 	return paragraph;

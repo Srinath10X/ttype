@@ -22,10 +22,6 @@ void TerminalHandler::disableRawMode() {
 	exit(0);
 }
 
-void TerminalHandler::signalHandler(int signal) {
-	TerminalHandler::disableRawMode();
-}
+void TerminalHandler::signalHandler(int signal) { TerminalHandler::disableRawMode(); }
 
-void TerminalHandler::registerSignalHandler() {
-	signal(SIGINT, TerminalHandler::signalHandler);
-}
+void TerminalHandler::registerSignalHandler() { signal(SIGINT, TerminalHandler::signalHandler); }
