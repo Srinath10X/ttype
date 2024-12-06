@@ -1,6 +1,7 @@
 # build artifacts
 ttype
 a.out
+build
 
 # nix build directory
 result
