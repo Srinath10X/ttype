@@ -3,4 +3,5 @@ IndentWidth: 2
 TabWidth: "2"
 UseTab: Always
 ColumnLimit: 120
+NamespaceIndentation: All
 AllowShortIfStatementsOnASingleLine: true
