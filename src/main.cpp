@@ -14,12 +14,12 @@
  |     Author :  Srinath10X                                           |
  *-------------------------------------------------------------------*/
 
-#include "constants.hpp"
-#include "handlers/terminal_handler.hpp"
-#include "handlers/ui_handler.hpp"
-#include "modules/text_generator.hpp"
-#include "modules/timer.hpp"
+#include <constants.hpp>
+#include <handlers/terminal_handler.hpp>
+#include <handlers/ui_handler.hpp>
 #include <iostream>
+#include <modules/text_generator.hpp>
+#include <modules/timer.hpp>
 
 TerminalHandler terminal;
 Timer timer;
@@ -46,11 +46,11 @@ void TermiType::drawParagraph(const std::string paragraph, const std::string typ
 	ui.alignContentWithOffset(paragraph.length(), 1);
 
 	for (size_t i = 0; i < typed.length(); ++i) {
-		std::cout << (typed[i] == paragraph[i] ? BLUE : RED_UNDERLINE);
+		std::cout << (typed[i] == paragraph[i] ? ANSI::BLUE : ANSI::RED_UNDERLINE);
 		std::cout << paragraph[i] << RESET;
 	}
 
-	std::cout << WHITE_BACKGROUND BLACK << paragraph[typed.length()] << RESET;
+	std::cout << CURSORS::DEFAULT_CURSOR << paragraph[typed.length()] << RESET;
 	std::cout << paragraph.substr(typed.length() + 1);
 }
 
