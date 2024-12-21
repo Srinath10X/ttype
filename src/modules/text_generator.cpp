@@ -2,7 +2,7 @@
 
 std::string TextGenerator::generateParagraph(unsigned count) {
 	paragraph.clear();
-	int temp;
+	int temp = -1;
 	for (unsigned i = 0; i < count; ++i) {
 		int random_int = rand() % words.size();
 		if (temp == random_int) continue;
