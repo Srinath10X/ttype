@@ -1,6 +1,6 @@
-#include "handlers/terminal_handler.hpp"
-#include "constants.hpp"
+#include <constants.hpp>
 #include <csignal>
+#include <handlers/terminal_handler.hpp>
 #include <iostream>
 #include <unistd.h>
 
