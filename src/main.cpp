@@ -75,7 +75,7 @@ void TermiType::displayResults(unsigned word_count) {
 	while (true) {
 		c = getchar();
 
-		if (c == 27) {
+		if (c == 27 || c == 'n') {
 			reset(word_count);
 			TermiType::run(word_count);
 		} else if (c == 4) {
