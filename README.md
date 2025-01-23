@@ -4,7 +4,7 @@
 
 ## Showcase
 
-![Typing Test Showcase](https://i.imgur.com/mYKjPvL.png)
+![Typing Test Showcase](https://imgur.com/bj1Bnii.png)
 
 ## Table of Contents
 
