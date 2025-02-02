@@ -1,7 +1,7 @@
 BasedOnStyle: LLVM
 IndentWidth: 2
 TabWidth: "2"
-UseTab: Always
+UseTab: Never
 ColumnLimit: 120
 NamespaceIndentation: All
 AllowShortIfStatementsOnASingleLine: true
