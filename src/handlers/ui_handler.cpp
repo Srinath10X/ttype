@@ -16,5 +16,5 @@ void UiHandler::paddingTopWithOffset(unsigned offset) { std::cout << std::string
 void UiHandler::paddingLeftWithOffset(unsigned offset) { std::cout << std::string((window.ws_col - offset) / 2, ' '); }
 
 void UiHandler::alignContentWithOffset(unsigned offsetX, unsigned offsetY) {
-	std::cout << std::string((window.ws_row - offsetY) / 2, '\n') << std::string((window.ws_col - offsetX) / 2, ' ');
+  std::cout << std::string((window.ws_row - offsetY) / 2, '\n') << std::string((window.ws_col - offsetX) / 2, ' ');
 }
