@@ -7,19 +7,19 @@
 struct termios TerminalHandler::term;
 
 void TerminalHandler::enableRawMode() {
-  tcgetattr(STDIN_FILENO, &term);
-  term.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &term);
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
-  std::cout << WIPE_SCREEN << HIDE_CURSOR;
+    std::cout << WIPE_SCREEN << HIDE_CURSOR;
 }
 
 void TerminalHandler::disableRawMode() {
-  term.c_lflag |= (ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &term);
+    term.c_lflag |= (ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
 
-  std::cout << WIPE_SCREEN << SHOW_CURSOR;
-  exit(0);
+    std::cout << WIPE_SCREEN << SHOW_CURSOR;
+    exit(0);
 }
 
 void TerminalHandler::signalHandler(int signal) { TerminalHandler::disableRawMode(); }

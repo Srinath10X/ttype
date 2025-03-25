@@ -12,10 +12,10 @@ const std::vector<std::string> words = {
 };
 
 class TextGenerator {
-  std::string paragraph;
+    std::string paragraph;
 
-public:
-  std::string generateParagraph(unsigned count);
+  public:
+    std::string generateParagraph(unsigned count);
 };
 
 #endif // !PARAGRAPH_HPP
