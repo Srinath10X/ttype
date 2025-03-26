@@ -4,4 +4,5 @@ TabWidth: "4"
 UseTab: Never
 ColumnLimit: 120
 NamespaceIndentation: All
+SpaceBeforeCpp11BracedList: true
 AllowShortIfStatementsOnASingleLine: true
