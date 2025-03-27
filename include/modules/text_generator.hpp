@@ -1,5 +1,4 @@
-#ifndef PARAGRAPH_HPP
-#define PARAGRAPH_HPP
+#pragma once
 
 #include <string>
 #include <vector>
@@ -17,5 +16,3 @@ class TextGenerator {
   public:
     std::string generateParagraph(unsigned count);
 };
-
-#endif // !PARAGRAPH_HPP

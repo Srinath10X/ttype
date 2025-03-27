@@ -1,5 +1,4 @@
-#ifndef TIMER_HPP
-#define TIMER_HPP
+#pragma once
 
 #include <chrono>
 
@@ -15,5 +14,3 @@ class Timer {
     void stopTimer();
     double getDuration();
 };
-
-#endif // !TIMER_HPP

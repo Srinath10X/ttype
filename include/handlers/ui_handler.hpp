@@ -1,5 +1,4 @@
-#ifndef UI_HANDLER_HPP
-#define UI_HANDLER_HPP
+#pragma once
 
 #include <sys/ioctl.h>
 
@@ -15,5 +14,3 @@ class UiHandler {
     void paddingLeftWithOffset(unsigned offset);
     void alignContentWithOffset(unsigned offsetX, unsigned offsetY);
 };
-
-#endif // !UI_HANDLER_HPP

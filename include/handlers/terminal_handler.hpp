@@ -1,5 +1,4 @@
-#ifndef TERMINAL_HANDLER_HPP
-#define TERMINAL_HANDLER_HPP
+#pragma once
 
 #include <termios.h>
 
@@ -13,5 +12,3 @@ class TerminalHandler {
     static void signalHandler(int signal);
     static void registerSignalHandler();
 };
-
-#endif // !TERMINAL_HANDLER_HPP

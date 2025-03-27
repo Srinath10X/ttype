@@ -1,5 +1,4 @@
-#ifndef CONSTANTS_HPP
-#define CONSTANTS_HPP
+#pragma once
 
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
@@ -18,5 +17,3 @@ namespace ANSI {
 namespace CURSORS {
     constexpr const char *DEFAULT_CURSOR = "\033[47m\033[30m";
 } // namespace CURSORS
-
-#endif // !CONSTANTS_HPP
