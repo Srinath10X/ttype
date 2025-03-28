@@ -20,7 +20,7 @@
 
         installPhase = ''
           mkdir -p $out/bin
-          cp ./build/ttype-x86_64 $out/bin/ttype
+          cp ./build/ttype-x86_64 $out/bin/$pname
           chmod +x $out/bin/$pname
         '';
 
