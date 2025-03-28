@@ -21,7 +21,7 @@
         installPhase = ''
           mkdir -p $out/bin
           cp ./build/ttype-x86_64 $out/bin/ttype
-          chmod +x $out/bin/ttype
+          chmod +x $out/bin/$pname
         '';
 
         cleanPhase = "make clean";
