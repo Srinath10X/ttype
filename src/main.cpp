@@ -122,9 +122,8 @@ void TermiType::run(unsigned word_count) {
 }
 
 int main(int argc, char *argv[]) {
-    TermiType termi_type;
     srand(static_cast<unsigned>(time(nullptr)));
     terminal.registerSignalHandler();
-    termi_type.run(10);
+    TermiType().run(10);
     return 0;
 }
