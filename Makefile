@@ -34,4 +34,4 @@ $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH): $(SRC_FILES)
 	mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) $(SRC_FILES) -o $(BUILD_DIR)/$(BIN_NAME_WITH_ARCH)
 
-.PHONY: all clean build install run check
+.PHONY: all clean build install run
