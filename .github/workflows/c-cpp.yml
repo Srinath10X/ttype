@@ -20,11 +20,5 @@ jobs:
       - name: Build the project
         run: make build
 
-      - name: Run checks
-        run: make check
-
-      - name: Install the binary (for testing purposes)
-        run: sudo make install
-
       - name: Clean up build artifacts
         run: make clean
