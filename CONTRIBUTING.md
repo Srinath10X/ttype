@@ -15,7 +15,3 @@ Thank you for your interest in contributing to this TermiType! Please follow the
    - Any relevant example usage or documentation.
 3. Update version numbers in the README or example files as per [Semantic Versioning](http://semver.org/).
 4. A pull request requires approval from at least one reviewer before being merged. If you lack permissions to merge, request a maintainer to do so.
-
-## Code of Conduct
-
-This project follows a [Code of Conduct](CODE_OF_CONDUCT.md). Please review and adhere to it during all interactions.
